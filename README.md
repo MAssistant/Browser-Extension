@@ -1,5 +1,5 @@
 <div align='center'>
-<img src="./app/static/images/icon-long.png?raw=true" width = "400"  alt="logo" align="center" />
+<img src="./images/icon-long.png?raw=true" width = "400"  alt="logo" align="center" />
 </div>   
 
 # MOOC Assistant
@@ -20,13 +20,13 @@ To use MOOC assistant,
 - When you are watching a certain video on MOOC, click the icon of the plugin. It will show you key points and knowledge graph of this video immediately.
 
 <div align='center'>
-<img src="./app/static/images/extension.png?raw=true" width = "400"  alt="logo" align="center" />
+<img src="./images/extension.png?raw=true" width = "400"  alt="logo" align="center" />
 </div>   
 
 - Besides, you can right-click on the MOOC web page and select `MOOC Assistant`, then you will enter your personal archives where there is information about courses and knowledge points you've already learned.
 
 <div align='center'>
-<img src="./app/static/images/web.png?raw=true" width = "400"  alt="logo" align="center" />
+<img src="./images/web.png?raw=true" width = "400"  alt="logo" align="center" />
 </div>   
 
 ## Install
@@ -40,17 +40,17 @@ to be continue ...
 - Step 1
 
 ```
-git clone https://github.com/MOOCAssistant/MOOCAssistant.git
+git clone https://github.com/MAssistant/Browser-Extension.git
 
 ```
 - Step 2: Click Setting button -> More tools -> Extensions
-  <img src="./app/static/images/help1.png">
+  <img src="./images/help1.png">
 - Step 3: Turn on the Developer mode.
-  <img src="./app/static/images/help1_5.png">
+  <img src="./images/help1_5.png">
 - Step 4: Click 'Load Unpacked'.
-  <img src="./app/static/images/help2.png">
-- Step 5: Choose the MAssistant folder in the downloaded Github folder.
-  <img src="./app/static/images/help3.png">
+  <img src="./images/help2.png">
+- Step 5: Choose the Chrome Extension folder in the downloaded Github folder.
+  <img src="./images/help3.png">
 
 ## Citation
 
