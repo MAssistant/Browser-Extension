@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MOOC Assistant</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        html{
+            overflow: scroll;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+        .loading {
+            display: table;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: -1;
+        }
+        body {
+            overflow: scroll;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            height: 100%;
+            margin-top: 20px;
+            margin-bottom: 100px;
+            margin-right: 30px;
+            margin-left: 30px;
+            padding: 0px;
+            background-color: rgb(47, 55, 61);
+        }
+        .wrap{
+            padding:8px;
+            background-color: rgb(45, 190, 96);
+            border-color: #357ebd;
+            color: #fff;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px; /* future proofing */
+            -khtml-border-radius: 10px; /* for old Konqueror browsers */
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size:100%;
+            font-family: "微软雅黑";
+        }
+        .klist{
+          border: 0.5px solid #a5a2a2;
+          width: 280px;
+          height: 190px;
+          text-align: left;
+          overflow-y: scroll;
+          margin: 1px 2px 2px;
+        }
+
+        div {
+          cursor: pointer;
+          padding: 1px 3px;
+          font-family: sans-serif;
+          font-size: 12px;
+          width: 100%;
+          margin-top: 1px;
+        }
+        p{
+            color: white;
+        }
+        a{
+            color: white;
+            font-size:15px;
+        }
+        h1{
+            color:white;
+            width: 100%;
+            float: left;
+        }
+        h2{
+            color:white;
+            width: 100%;
+            float: left;
+        }
+        h3{
+            color:white;
+            width: 100%;
+        }
+        label{
+            color: white;
+            font-size: 15px;
+        }
+        svg{
+            width: 280px;
+            height: 250px;
+        }
+        .tooltip{
+          position:absolute;
+          padding:5px;
+          width:auto;
+          height:auto;
+          font-family:simsun;
+          font-size:14px;
+          color:black;
+          background-color: rgb(255,255,255);
+          border-width: 2px solid rgb(255,255,255);
+          border-radius:5px;
+        }
+        .tooltip:after{
+          content: '';
+          position:absolute;
+          bottom:100%;
+          left:20%;
+          margin-left: -8px;
+          width:0;
+          height:0;
+          border-bottom:12px solid rgb(255,255,255);
+          border-right:12px solid transparent;
+          border-left:12px solid transparent;
+      }
+        .note a{
+             height:40px;
+             color: #FFFFFF;
+             text-decoration:none;
+             font-size: 15px;
+        }
+        #editor{margin:4px;height:150px;width:250px;border:1px solid rgb(204, 204, 204);overflow-y: scroll;}
+        button {
+            padding:8px;
+            margin:1px;
+            background:rgb(224, 224, 224);
+            cursor:pointer;
+            overflow:hidden;
+        }
+        button:hover {
+            background:#ccc;
+        }
+    </style>
+
+  </head>
+  <body>
+  <!--logo及标题-->
+   <div style="text-align:center;"><a href="http://127.0.0.1:80/" target="_blank"><img src="images/small.png"  align="middle" width="80" height="80"></a></div>
+  <!--主体，未登录前不显示-->
+  	<div>
+	    <div class="wrap" id = "KList_title" style="display:none">Concepts</div>
+	    <div class="klist" id = "try" style="display:none"> </div>
+	</div>
+	<div>
+    	<div class="wrap" id = "KGraph-title" style="display:none">Concept Graph</div>
+    	<svg style="display:none" id = "KGraph"></svg>
+	</div>
+	<div>
+    	<div class="wrap" id = "note_title" style="display:none">Note</div>
+    	<div class = "note" id = "note" style="display:none">
+        <a href="wang/index.html" target="_blank">Click here to start note</a>
+    	</div>
+	</div>
+    <!-- 注册窗口 -->
+    <div id="register-div" style="display:none">
+    	<h3 class="text-center">Sign up</h3>
+    	<form class="form-horizontal" role="form" id="register-form">
+			<div class="form-group">
+				<input class="form-control" type="text" placeholder="Username" id="username">
+		    </div>
+		     <div class="form-group">
+		     	<input class="form-control" type="password" placeholder="Password" id="password">
+		     </div>
+			<div class="form-group">
+					<input class="form-control" type="password" placeholder="Confirm password" id="repassword">
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="email" placeholder="Email" id="email">
+			</div>
+			 <div class="btn-group btn-group-justified" role="group">
+			 	<div class="btn-group">
+					<button class="btn btn-primary btn-block" type="button" id="submit">Submit</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-danger btn-block" type="reset">Cancel</button>
+				</div>
+			</div>
+			<button type="button" class="btn btn-outline-success" id="SwitchToLogin">Already have an account? Click here to sign in</button>
+        </form>
+    </div>
+    <!-- 登录窗口 -->
+    <div id="login-div" style="display:block">
+    	<h3 class="text-center">Sign in</h3>
+		 <form class="form-group" action="" method="POST" id="eL-form">
+			<div class="form-group">
+				<input class="form-control" type="text" placeholder="username" id="userOrEmail">
+			</div>
+			<div class="form-group">
+				 <input class="form-control" type="password" placeholder="Password" id="LogPassword">
+			</div>
+			<div class="btn-group btn-group-justified" role="group">
+				<div class="btn-group">
+					<button class="btn btn-primary btn-block" type="button" id="login">Sign in</button>
+				</div>
+				<div class="btn-group">
+					<button class="btn btn-danger btn-block" type="reset">Cancel</button>
+				</div>
+			</div>
+			<button type="button" class="btn btn-outline-success" id="SwitchToRegister">Don't have an account? Click here to Create account</button>
+		  </form>
+		  <h1 class="title"></h1>
+	  </div>
+  </body>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/d3.v5.min.js"></script>
+  <script type="text/javascript" src="js/d3-v4-contextmenu.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/login.js"></script>
+</html>

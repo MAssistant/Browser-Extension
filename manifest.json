@@ -1,0 +1,53 @@
+{
+  "manifest_version": 2,
+  "name": "MAssistant",
+  "description": "MAssistant",
+  "version": "1.1.2",
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+  	"contextMenus",
+    "storage",
+    "http://127.0.0.1:9090/*",
+    "http://172.22.109.165:9090/*",
+    "http://172.22.109.236:2222/*",
+    "http://172.16.216.248:7474/*",
+    "http://172.22.109.236:9090/*",
+    "https://kg.bnu.edu.cn/*",
+    "identity"
+  ],
+
+  "icons":{
+    "16": "./images/small.png",
+    "48":"./images/small.png",
+    "128": "./images/small.png"
+  },
+
+  "background":{
+    "scripts":[
+      "js/jquery-3.3.1.min.js",
+      "js/background.js"
+    ],
+    "persistent": true
+  },
+
+  "browser_action": {
+      "default_title": "demo",
+      "default_icon": "./images/small.png",
+      "default_popup": "popup.html"
+  },
+
+  "content_scripts":[{
+    "matches": [
+        "https://www.coursera.org/*"
+      ],
+      "js": [
+          "js/jquery-3.3.1.min.js",
+          "js/d3.v5.min.js",
+		      "js/d3-v4-contextmenu.js",
+          "js/content_script.js",
+          "js/login.js"
+      ]
+    }]
+}
